@@ -1,94 +1,78 @@
-# Minimal AI Chat UI
+# AI Assistant using Chat Completion and RAG  
+Author: **Leonardo Sampaio Rocha**
 
-This project provides a minimal, clean web UI for chatting with an AI agent, inspired by modern AI chat apps. It's framework-agnostic (HTML/CSS/JS) and includes simple hooks to integrate your own API (non-streaming or streaming).
+## Overview
+This project is a lightweight **AI Assistant backend** built with **FastAPI**, designed to integrate **Chat Completions** with **Retrieval-Augmented Generation (RAG)**.  
+It provides both streaming and non-streaming APIs, ready to be plugged into a frontend.
 
-## Features
-- Modern chat layout (left/right bubbles, avatars, auto-scroll)
-- Input textarea with send via Enter and Shift+Enter for newline
-- New chat, regenerate last reply, and stop-generation controls
-- Model/status indicator and typing indicator
-- Light/dark theme with system preference support
-- Simple API integration hooks (non-streaming and streaming)
-- Optional local mock mode for quick testing
+---
 
-## Getting started
+## Quickstart
 
-1) Open locally
-- You can open `public/index.html` directly in your browser, but some features (like streaming) work best over HTTP.
-
-2) Serve locally (recommended)
-- With Python (3.x):
-  ```bash
-  cd public && python -m http.server 5173
-  ```
-  Then visit `http://localhost:5173`.
-
-- With Node.js (if installed):
-  ```bash
-  npx serve public -l 5173
-  ```
-
-3) Run the backend (optional, for real LLM)
-- In another terminal:
-  ```bash
-  cd agent
-  pip install -r requirements.txt
-  # set envs: OPENAI_API_KEY, CORS_ALLOW_ORIGINS=http://localhost:5173
-  uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-  ```
-  Then set `USE_MOCK = false` in `public/script.js` and `API_CONFIG.endpoint = 'http://localhost:8000/api/chat'`.
-
-## Integrating your API
-
-Edit `public/script.js` and update the `callAgent` function and/or the `API_CONFIG` object.
-
-### Non‑streaming example
-```js
-// Replace with your endpoint
-const response = await fetch(API_CONFIG.endpoint, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json', ...API_CONFIG.headers },
-  body: JSON.stringify({
-    message, // latest user message
-    history, // optional prior messages
-    // ...any agent options
-  })
-});
-const data = await response.json();
-return { text: data.reply || data.text };
+### 1. Create and activate a virtual environment  
+```bash
+cd agent
+python -m venv .venv
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+# macOS/Linux
+# source .venv/bin/activate
 ```
 
-Expected JSON response shape (customize as needed):
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure environment via .env
+- Create `agent/.env` with:
+```bash
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+
+# Frontend origin(s) (comma-separated)
+CORS_ALLOW_ORIGINS=http://localhost:5173
+
+# Optional default system prompt
+DEFAULT_SYSTEM_PROMPT=You are a helpful AI assistant.
+```
+The server loads `agent/.env` automatically (and falls back to a root `.env` if present).
+
+### 4. Run the server
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### 5. Test
+```bash
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Hello!","history":[],"stream":false}'
+```
+
+API
+
+POST /api/chat
+
+Request body:
 ```json
-{ "reply": "Hello! How can I help you today?" }
+{
+  "message": "string",
+  "history": [ {"role": "user|assistant|system", "content": "string"} ],
+  "stream": false,
+  "system_prompt": "optional"
+}
 ```
 
-### Streaming example (SSE or fetch stream)
-If your API streams text chunks (Server-Sent Events or chunked fetch), implement the `onToken` callback:
-```js
-await callAgent(message, history, { onToken: (token) => appendToken(token) });
-```
-Inside `callAgent`, read from the response body reader and call `onToken` for each chunk decoded to text.
+Responses:
+- Non-streaming: application/json with { "reply": string, "citations": [] }
+- Streaming: text/plain chunks; append to your UI as tokens arrive
 
-### Configuration
-Update these values in `public/script.js`:
-- `API_CONFIG.endpoint`: Your API URL
-- `API_CONFIG.headers`: Any required auth headers
-- Toggle `USE_MOCK` to `false` to use your real API
+RAG readiness
+- app/services/rag.py: RAGPipeline.retrieve and format_context
+- Replace with vector DB retrieval (FAISS/Chroma/Milvus/pgvector). Return RetrievalResult[] and we’ll pass formatted context into the system message.
 
-## Commands / Shortcuts
-- Enter: Send
-- Shift+Enter: New line
-
-## File structure
-- `public/index.html` — markup
-- `public/styles.css` — styles (responsive, dark mode)
-- `public/script.js` — chat logic and API hooks
-
-## Notes
-- This UI is intentionally minimal; extend as you need (attachments, message actions, markdown rendering, code highlighting, etc.).
-- If you enable streaming, ensure your server sets appropriate CORS headers and uses chunked transfer without buffering.
-
-## License
-MIT
+OpenAI config
+- app/services/llm_openai.py reads OPENAI_API_KEY, OPENAI_MODEL, OPENAI_BASE_URL
+- Uses /chat/completions non-streaming and streaming via SSE-style chunks
 
