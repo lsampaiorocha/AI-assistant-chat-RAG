@@ -1,0 +1,131 @@
+(Transcrito por TurboScribe.ai. Atualize para Ilimitado para remover esta mensagem.)
+
+Ok pessoal, podem me ouvir? Estou audível para todos vocês. Por favor confirmem no chat se estou audível. Você pode mencionar dentro da opção de conversa.
+
+Estou audível, pessoal. Estou audível e visível. Por favor confirmem.
+
+Eu espero que de meu lado tudo está bem. Tudo está perfeito. Ok, ótimo.
+
+Então estou visível, certo pessoal? Algum problema, alguma coisa? Por favor me digam se estou visível. Eu acho que a câmera está um pouco esgotada. Ok, deixe-me ver por um segundo.
+
+Por que está esgotada? Ok, ótimo. Então ainda está esgotada? Ou também, pessoal? Eu espero que tudo esteja perfeito para o meu lado. Ok, ótimo.
+
+Então, vamos começar. Então, sim. Agora, pessoal, vejam.
+
+Podemos começar a sessão. Eu espero que a agenda esteja clara. Então a agenda é, basicamente, eu vou discutir as questões da Genetive AI.
+
+Esta é a minha segunda live no meu canal do YouTube. Se você for conferir a sessão de live. Então, eu fiz uma sessão de live 8 meses atrás.
+
+Ok, e esta é a segunda live que eu estou fazendo. Então, dentro desta sessão, eu vou tentar discutir algumas questões da Genetive AI. Quantos de vocês estão me seguindo no meu canal do YouTube? Digam-me.
+
+Quantos de vocês estão seguindo este vídeo de forma regular? Digam-me. Eu espero, pessoal, que vocês estejam seguindo o meu canal do YouTube de forma regular. E vocês estão aprendendo.
+
+O seu aprendizado está indo muito, muito incrível, certo? E, vejam, eu criei diferentes playlists. Ok, dentro do meu canal do YouTube. Então, relacionado com o LengChain, LengGraph, Rag, ok.
+
+E aqui, relacionado com o Retrieval Augment Generation, Multimodel, Rag também. Então, muitas playlists e tudo mais. Agora, nesta sessão.
+
+Então, o que eu vou fazer, eu vou discutir um par de perguntas de entrevista. Não um par de perguntas de entrevista. Eu tenho mais de 100 perguntas de entrevista.
+
+Ok. E, tipo, eu tenho uma variedade de perguntas de entrevista. Cada uma e todas as outras, eu vou tentar discutir nesta sessão de hoje.
+
+Não respostas. Resposta vai... Se eu discutir as respostas, então, esta sessão vai ser muito longa. Então, eu vou ficar com as perguntas em si.
+
+E eu vou te dar a tarefa, basicamente, com respeito a essas perguntas. E eu vou te dar o meu plano. O que é o meu plano com respeito a estas perguntas de entrevista.
+
+E as próximas sessões, ok. Que eu vou fazer no meu canal do YouTube. Porque ontem, eu planejei esta sessão, esta sessão ao vivo.
+
+Mas eu não consegui, tipo, se juntar a isso. Então, eu tive algum trabalho. Então, por causa disso, eu planejei para hoje.
+
+E sim, eu espero que sim. Tudo está bem, do meu lado. Então, pessoal, por favor, me dê uma confirmação rápida.
+
+Se tudo está perfeito do meu lado, tudo está indo bem. Então, eu vou vir para a, tipo, questão de entrevista e tudo. Eu vou discutir o plano completo.
+
+Tipo, primeiro de tudo, eu vou deixar o plano completo. E, passo a passo, eu vou tentar discutir cada uma e todas as outras. Me digam.
+
+Me digam, pessoal. Sim ou não. Sim, e aí você pode perguntar sua dúvida e tudo.
+
+E eu vou tentar, tipo, manter, eu vou tentar conduzir este tipo de sessões em uma base regular. Eu estou pensando em manter este tipo de sessão 3 vezes na semana. Pelo menos 2 vezes na semana.
+
+Então, nós vamos conectar uma sessão em dias de semana e uma sessão em fim de semana. Então, eu posso te dar, tipo, um atualizador. E nós podemos discutir, tipo, alguns tópicos, diferentes tópicos e tudo.
+
+Ok, o recente e, tipo, o tópico recente. E, recente, basicamente, em termos de projetos também. Então, nós vamos tentar usar diferentes ferramentas e componentes e framework.
+
+E nós vamos tentar criar alguns projetos incríveis também. No live. E, além deste, veja, eu fiz um post também no meu canal do YouTube.
+
+Eu acho, um mês atrás mesmo. Então, lá eu te disse, pessoal, que eu vou completar, eu vou, tipo, vir para, basicamente, eu vou vir ao vivo para este Genitivi, um tutorial ao vivo também. Então, tutorial de fim a fim e aqui eu pergunto o tempo também.
+
+Mas, infelizmente, eu não pude vir ao vivo, ok, para esta sessão particular. Esta sessão ao vivo. Porque eu estava ocupado com meu, tipo, trabalho na oficina e tudo.
+
+Então, agora, tipo, o que eu estou pensando. Eu vou vir, tipo, pelo menos duas vezes na semana, ok, ao vivo. E nós vamos tentar discutir alguns tópicos importantes e tudo.
+
+E depois, uma vez que eu completar toda esta playlist, o que eu já comecei. Então, agora, tipo, eu, tipo, estou ensinando esta Language Graph, basicamente. Eu comecei o tutorial de fim a fim desta Language Graph e eu uploadei, tipo, nove vídeos relacionados a esta Language Graph, se você for ir e ver esta playlist. 
+
+Nove mais vídeos estão por vir, porque eu quero completá-lo o mais rápido possível. Tipo, eu vou deixar você saber sobre o RAG, ok, como você pode criar um tipo diferente de RAG, tipo, RAG agente, RAG corretivo. E depois eu vou vir para o sistema multiagente com diferentes projetos, ok.
+
+Então, este é o meu motto relacionado a esta playlist particular. E depois eu vou começar com um novo tópico, ok, e entre esta playlist e este tópico. Então, eu vou vir ao vivo e eu vou tentar discutir alguns projetos, alguns, tipo, este tópico quente, ok, relacionado ao AI generativo.
+
+E eu vou tentar discutir as perguntas de entrevista, resume e tudo, como você pode criar um resume, não apenas o AI generativo, eu vou tentar começar de começo, ok, qualquer coisa que você tenha em mente, não com respeito ao AI generativo, até mesmo o aprendizado de máquinas, aprendizado profundo, o MLDL clássico, tudo pessoal, tipo, eu vou tentar discutir aqui, ok. E sim, você vai aprender muito do meu lado, isso é o que eu prometo a todos vocês. Então, digam-me, pessoal, como o seu aprendizado está acontecendo através do meu canal do YouTube e podemos começar ou não com a agenda de hoje, digam-me sim, você pode me dar um pulo rápido, você pode mencionar dentro do chat, vamos fazer esta sessão um pouco mais interativa, ok, e eu não estou muito acostumado com este tópico de vida, quer dizer, este tópico de vida do YouTube, do meu lado, eu fiz um monte, um monte de sessões de vida, ok, mas este é o meu canal do YouTube, então este é apenas o segundo tópico de vida, e não se preocupe, pessoal, em alguns dias, eu vou ser um pouco perfeito, ok, e sim, então sim, resumo também, definitivamente, vamos tentar discutir sobre o resumo e tudo mais, eu tenho, tipo, muitos mais resumos, até eu vou deixar para você saber como eu peguei este papel de gerente de BI quando eu comecei a aplicar para este papel em particular, certo, o que as pessoas me perguntaram, qual foi a expectativa das empresas, tudo, eu vou tentar discutir, eu vou tentar compartilhar com todos vocês, para que vocês possam tomar a mesma estratégia, porque muitos de vocês, 50% das pessoas, já estão trabalhando nesta ciência de dados e neste domínio de BI, eles só querem mudar, ok, eles só querem transitar, eles só querem ter um bom projeto na gerente de BI, ok, e tipo, 50% das pessoas não sabem nada sobre o aprendizado de máquinas e a ciência de dados, aprendizado profundo e tudo mais, e eles diretamente querem mudar para a gerente de BI, e algumas das engenheiras de software e algumas das, tipo, pessoas são de diferentes fieles, tipo analítica e engenheira de dados, eles também querem saber sobre esta gerente de BI, eles também querem ter um bom projeto, ok, eles também querem ter um trabalho, ou eles também querem saber como a gerente de BI funciona, para que eles possam integrar a gerente de BI dentro de seus próprios projetos, então diferentes tipos de pessoas estão lá, tipo, uma variedade de pessoas, e eu entendo a necessidade de cada e cada pessoa, ok, porque eu, tipo, ensinei tantos estudantes, tantos significa tantos, tipo, mais de 10 mil, então eu conheço, tipo, o ponto de sofrimento dos estudantes, certo, onde eles estão faltando, o que eles querem aprender, e tipo, sim, então eu vou tentar te ajudar em termos de cada e cada coisa, não se preocupe. 
+
+Agora, sim, então vamos começar, primeiro de tudo, deixe-me mostrar-te, tipo, todas as perguntas de entrevista e tudo mais, ok, então pessoal, aqui eu preparei todas as perguntas de entrevista relacionadas à gerente de BI, e essas perguntas de entrevista eu dividi em várias seções, ok, e aqui pessoal, se você olhar nesse doc, então dentro desse doc, eu guardei mais do que, tipo, 100 perguntas, ok, não 100 basicamente, se você calcular, vai ser, tipo, mais de 150 perguntas, e sim, então eu criei diferentes seções também, então, tipo, perguntas sobre o Rack, perguntas sobre o Fine Tuning, ok, e aqui, basicamente você vai ver as perguntas sobre o Vector Database, perguntas sobre o projeto, perguntas sobre o ML Ops, LLM Ops, ok, então, tipo, tantas perguntas, basicamente, eu tenho, então definitivamente eu vou compartilhar esse documento com todos vocês, e eu vou te deixar saber o que você tem para fazer com esse documento, tipo, o que é meu próximo passo, ok, então primeiro de tudo deixe-me te dar esse link, só um segundo, eu estou te dando esse link, galera, e eu espero que eu possa postá-lo dentro do chat, então por favor, me dê um minuto, eu estou te dando esse particular link para todos vocês, só um segundo, galera, a sessão está indo bem, certo? Sim ou não? Se está indo bem, você pode me dizer, se você tem alguma coisa do seu lado, você pode me dizer isso também, e definitivamente depois dessa discussão e tudo mais, eu vou fazer alguma Q&A também, Q&A significa, tipo, qualquer pergunta e quaisquer perguntas que você tem relacionadas a essa Genetive AI, Data Science, Machine Learning, Deep Learning, eu vou tentar pegar todas as perguntas do seu lado, ok? Então, só um segundo, deixe-me abrir, sim, então galera, você pegou um link ou não? Por favor, confirme. Se você pegou esse link, por favor, me diga sim ou não, você pode me confirmar no chat, só um segundo, ok, as pessoas estão dizendo não senhor, nós não pegamos, ok, por favor, agora veja, você pegou? Sim, eu vou colocar na descrição, então, você pode, quando você está vindo para o vídeo, você pode pegar direto daqui mesmo, ok? Se você pegou, por favor, me dê um like, me diga galera, você pegou um link ou não? E galera, se você está gostando da sessão, você pode clicar no botão de gostei, e você pode se inscrever também, porque eu vi que muitas pessoas estão assistindo os vídeos, mas não se inscreveram no canal, então, recentemente, eu vi a analítica do meu canal, então, cerca de 40% das pessoas, 35% a 40% das pessoas, 40% das pessoas, eles se inscreveram no canal, o resto das pessoas estão assistindo o vídeo de forma regular, mas eles não se inscreveram, então, galera, se você é um deles, por favor, se inscreva no canal, ok? E, sim, a condição é, se você está gostando da sessão, se você está gostando do conteúdo, mas eu espero que você esteja gostando do conteúdo, porque isso é minha maior prioridade, você deve gostar do conteúdo, o que eu estou ensinando, significa que eu estou apenas dando o conteúdo refinado, ok, e para certeza, galera, se você seguir este conteúdo e tudo, facilmente você pode fazer um trabalho no mercado, isso é minha promessa a todos vocês. Entendeu? Sim.
+
+Agora, eu espero, galera, que vocês tenham este link. Agora, veja, quando estamos falando sobre a Genetive AI, eu espero que vocês conheçam sobre a Genetive AI, vocês conheçam as bases da Genetive AI, se vocês não conhecem, o que vocês podem fazer, vocês podem ir e verificar com o meu canal, ok, e lá vocês podem ver com o mapa completo, end-to-end, o mapa completo da Genetive AI. Entendido? Então, vocês vão ter alguma ideia sobre quais são os temas que vêm dentro da Genetive AI.
+
+Agora, vindo ao curso, vindo a esta Genetive AI, entrevista e tudo, mas antes de começar esta entrevista, deixe-me dar uma ideia sobre a Genetive AI e depois eu vou vir a este, um por um, ok, e depois eu vou dizer o meu plano, o que você tem que fazer com esta entrevista e como você tem que criar uma solução e tudo, e eu vou compartilhar uma fórmula do Google também, para que você possa submetê-la e definitivamente eu vou apresentar estas perguntas, ok, junto com a resposta do meu canal do YouTube, ou eu vou criar uma playlist separada também. Então, primeiro de tudo, o que eu estou fazendo, eu vou abrir meu Blackboard, pessoal, então lá eu vou deixar vocês saberem as bases da Genetive AI, quer dizer, onde ela está, para que facilmente vocês possam entender as perguntas, perguntas, qualquer pergunta que eu tenha escrevido e por que eu incluí este ANN, por que eu incluí este ANN e outras coisas, então por que eu categorizei cada coisa. Agora, vejam, pessoal, esta é a introdução da Lengraph, se você está seguindo o meu vídeo sobre Lengraph, então eu espero que você conheça estas notas particulares e eu também compartilhei no meu GitHub, você pode pegar todas as notas do meu GitHub também, se você for ver qualquer vídeo meu, você vai receber um link desse GitHub.
+
+Então, este Blackboard é visível, por favor, me digam, pessoal, se ele é visível, você pode me dizer, sim, me diga rápido, estou esperando as suas respostas e sejam atentos, pessoal, se eu estou perguntando algo, se eu estou, tipo, perguntando qualquer tipo de pergunta, então você precisa responder no chat, então, por favor, sejam atentos no chat. Agora, vejam, então, sempre que eu falo sobre o AI generativo, pessoal, o AI generativo, basicamente, é parte do AI em si, ok? Eu espero que você tenha visto este diagrama, a maioria do tempo, agora, deixe-me fazer uma coisa, deixe-me desenhar este diagrama, um segundo, sim, então, aqui, pessoal, vejam, isto é o que? Isto é o meu AI, ok? O círculo completo, é o que? Isto é o meu AI. Agora, dentro do AI, ok? Então, agora, deixe-me mudar de cor, vejam, aqui está o aprendizado de máquinas, este o próximo círculo é o aprendizado de máquinas, agora, dentro do aprendizado de máquinas, você encontrará mais um círculo, que é o aprendizado profundo, e agora, dentro do aprendizado profundo, basicamente, eu posso desenhar mais um círculo, e este círculo, na verdade, representa o AI generativo, ok? Então, este AI generativo não é nada, ele é parte do AI, ok? Então, aqui eu posso anotar este, cada coisa, então, deixe-me, marcar, ok? Este, este, e aqui é este.
+
+Então, pessoal, me digam o que é isto? Isto é o meu AI, ok? Este círculo completo é o AI, e aqui, este, este círculo interno é o ML, aprendizado de máquinas, ok? Agora, dentro do aprendizado de máquinas, você encontrará o aprendizado profundo, ok? E dentro do aprendizado profundo, você encontrará o AI generativo. AI generativo. Agora, pessoal, me digam, este diagrama é claro para todos vocês, vocês entendem este diagrama, sim ou não? Vocês entendem este diagrama? Sim.
+
+Eu vou colocar o link do Github também, desculpe, eu vou colocar o link de vídeos também no meu Github, eu estou planejando colocar isso, e vocês vão encontrar isso em breve dentro do readme file. Então, se vocês quiserem ir e ver o readme file, então hoje mesmo, ou amanhã talvez eu vou atualizar isso, ok? Ok. Agora, vejam, pessoal, o AI generativo é nada, este é um parte do aprendizado profundo, ok? Agora, o AI generativo, basicamente, é baseado no LLM.
+
+LLM, o que é o LLM? Me digam, se vocês conhecem o formato completo do LLM, me digam dentro do chat. Então, o LLM não é nada, é um modelo de linguagem grande, ok? Que, tipo, que trabalha com basicamente a arquitetura baseada no transformador. Então, nós temos um transformador, eu acho que vocês conhecem o transformador.
+
+Então, deixe-me escrever aqui, transformador, ok? E todos os LLMs, basicamente, eles criaram em cima da arquitetura do transformador. Dentro do transformador, nós temos encoder e decoder, ambos, ok? E usando este transformador, basicamente, as pessoas criaram vários LLMs. LLM significa o que? Modelo de linguagem grande, ok? E este AI generativo, basicamente, é completamente baseado no modelo de linguagem grande. 
+
+Agora, vejam, agora, o tempo está indo em frente, certo? Então, o tempo dentro do AI generativo, o que eu senti, então, agora, ao invés deste LLM, as pessoas estão trabalhando com o SLM também. E o que é o SLM? SLM, basicamente, é um modelo de linguagem pequena, ok? SLM é um modelo de linguagem pequena. Nós temos LIM também, ok? LIM significa o que? Modelo de imagem grande, ok? Modelo baseado em imagens, que é, basicamente, baseado no transformador de visão. 
+
+De novo, este transformador de visão, ele se refere ao transformador em si mesmo. Então, este AI generativo, certo? O AI generativo, principalmente, depende deste LLM, LIM, SLM significa o que? Este modelo de linguagem pequena, ok? E eu espero que esta coisa seja bastante clara para todos vocês. Então, quando falamos sobre o AI generativo, certo? Então, quando falamos sobre o AI generativo, pessoal, então, geralmente, nós começamos de onde? Nós começamos do basicamente, LLMs.
+
+Nós entendemos o funcionamento dos LLMs. Nós podemos dizer LLM ou LM. LM, basicamente, é uma versão pequena do modelo de linguagem grande.
+
+E antes do modelo de linguagem grande, nós estávamos usando o modelo de linguagem, ok? Que foi baseado no NLP clássico, como RNN, LSTM, GRU, ok? Mecanismo de atenção, usando o encoder-decoder, e até o Word, o Word e o GPT também. Então, a versão inicial do Word e o GPT, esse modelo também foi chamado LM, ok? E então, basicamente, ele passou para o LLM, que significa modelo de linguagem grande. Enquanto nós progressamos nesse campo do AI generativo, então, as pessoas transformaram esse modelo de linguagem em um enorme número de dados. 
+
+E como isso é possível? Por causa da arquitetura do transformador, ok? Então, nós podemos dar muitos dados para a arquitetura do transformador e nós podemos criar um modelo de linguagem grande. E nós temos muitos exemplos de modelos de linguagem grande. Espero que vocês entendam o que eu estou tentando explicar.
+
+Sim ou não? Agora, quando nós falamos sobre esse AI generativo, então nós falamos sobre o LLM. E antes de vir para esse LLM, se você quiser saber mais sobre esse AI generativo, ou esse LLM, então você deve sempre começar pelo NLP. Pelo menos pelo NLP. 
+
+Eu recomendo para todos vocês, ok? Se você está indo começar a sua jornada com esse AI generativo, então pelo menos comece pelo NLP. Tente entender o conceito básico do NLP, ok? E se você quiser entender, ok? Se você quiser entender esse NLP, de uma forma boa e boa, então você deve sempre começar com o aprendizado profundo. Aprendizado profundo, ao invés de aprendizado profundo, principalmente você deve cobrir este ANN, ok? Pelo menos este ANN e as bases do CNN.
+
+Se vocês sabem assim, pessoal, este ANN e as bases do CNN e do NLP, então facilmente vocês podem entender o conceito desse modelo de linguagem grande, ok? Facilmente vocês podem entender o conceito do modelo de linguagem grande. Agora, então eu espero que essa coisa seja clara. Agora chegando ao AI generativo, o que nós precisamos aprender dentro do AI generativo? A primeira coisa é o LLM, ok? E para entender este LLM, você precisa entender o transformador.
+
+O transformador é uma arquitetura muito importante. Sem este transformador, você não pode entender o LLM. Se você quiser entender a arquitetura do LLM, as diferentes arquiteturas, ok? Você deve sempre começar do transformador.
+
+Então este é um requisito como NLP, DL, ANN, CNN, as bases desses tópicos, e depois vem o transformador e este LLM. Agora, chegando ao principal tópico do AI generativo, que é muito popular e que as pessoas estão usando para criar um aplicativo. Agora, a primeira coisa que eu gostaria de destacar aqui é o RAG, ok? O RAG é bastante importante.
+
+Usando o RAG, o que nós podemos fazer? Nós podemos criar, nós podemos conectar o LLM com qualquer fonte de dados, ok? E nós podemos argumentar a saída do modelo de grande língua. E essa é a beleza do RAG. O RAG é um conceito muito usado. 
+
+Eu já criei uma playlist do RAG no meu canal do YouTube. Se você for lá e ver, você vai conseguir isso. Agora, além deste RAG, vocês devem entender esta técnica de fine-tuning também. 
+
+Há muitas técnicas de fine-tuning, ok? Então, nós sempre recebemos um modelo de base, porque nós não podemos treinar o modelo de base do nosso lado. Então, nós sempre recebemos um modelo de base de diferentes organizações, como organizações gigantes, como Meta, Google, e da Microsoft, e da outra organização, como OpenAI também. Então, nós pegamos esse modelo de base e nós realizamos o fine-tuning em cima do modelo de base.
+
+Então, o que é o fine-tuning? Fine-tuning significa supervisão de fine-tuning, ok? E então, dentro da supervisão, vocês vão descobrir o PEFT, dentro do PEFT, novamente, LORA, depois, QLORA, ok? E então, aprendizagem de reforçamento através do feedback humano. Então, vocês vão descobrir algumas técnicas avançadas também, como DPO, PPO, ok? E vários métodos de quantização. Então, tudo isso vem sobre este fine-tuning.
+
+Então, o fine-tuning do RAG é basicamente uma coisa muito importante. Agora, quando nós tentamos construir a aplicação, a aplicação de GeneTVAI, então, nós precisamos de um framework também. Então, basicamente, no framework, vocês vão descobrir as ferramentas, vocês vão descobrir algumas, como ferramentas pré-definidas, algumas instruções pré-definidas, que vocês podem usar diretamente. 
+
+Então, o muito famoso framework, vocês vão descobrir, que é o LangChain, ok? LangChain é um muito famoso framework. Depois, há o LamaIndex. Então, nós devemos entender a funcionalidade deste LangChain e deste LamaIndex.
+
+É muito importante e muito necessário se vocês querem entender a modernidade da GeneTVAI, ok? Então, o RAG está lá, o fine-tuning está lá. Então, mais um conceito, deixe-me contar para vocês, os agentes. O agente está ficando muito popular e o agente não é nada, é um, tipo, um motor de pensamento. 
+
+Então, de forma específica, nós estamos proporcionando uma instrução para o LLM e o LLM está argumentando em cima dessas instruções e está nos dando um resultado final, ok? Então, o RAG, o agente de fine-tuning está lá, depois o framework, o LangChain, o LamaIndex e depois um par de outros conceitos, como o vector database também. Então, vocês devem entender este vector database, ok? O quão importante é isto, como podemos usá-lo, qual é a importância deste vector database dentro da GeneTVAI. Definitivamente, vocês devem entender que este conceito é muito importante.
+
+Depois, após aprender o RAG, o fine-tuning, o LangChain, o LamaIndex, os agentes, ok? E este vector database e tudo mais. Então, basicamente, vocês podem mudar para a construção de projetos. Vocês podem criar qualquer tipo de projeto e para construir um projeto, vocês devem ter uma compreensão do MLops, ok? MLops, basicamente, MLops vai te ensinar como desenhar uma aplicação baseada no LLM ou ML.
+
+Você pode dizer MLops ou LLMops, ambas são boas, ok? MLops ou LLMops, ambas são boas, porque o LLM, veja, o MLops é inspirado pelo DevOps, ok? DevOps, então, aqui, deixe-me escrever este DevOps, ok? DevOps, basicamente, dentro deste DevOps você vai encontrar o desenvolvimento completo, o desenvolvimento web. Então, aqui, se eu retirar este tab, ok, se eu estiver mantendo este ML, então, ele está, tipo, ele está alcançando, tipo, ele está alcançando o aprendizado de máquinas clássicas. Agora, se eu retirar este ML daqui, e se eu estiver mantendo este LLM, então, ele está alcançando o LLM, o modelo de linguagem grande. 
+
+Então, como podemos deployar este modelo de linguagem grande? Como podemos producionizar isso? Como podemos entrar no ambiente de produção? Ok? Então, esta coisa, você precisa aprender. Principalmente, eu vou te dizer, então, aprenda algum conceito básico do DevOps, então, venha para este MLops e entenda sobre o LLMops, ok? Aprenda em uma particular sequência. Então, estes são alguns conceitos importantes, pessoal, do Genitive AI.
+
+LLM, Transformer, RAG, Agents, Fine Tuning, Lang Chain, Lama Index, Vector Database, e então, LLMops, ok? E todas as perguntas de entrevista que eu criei, eu criei apenas para este aqui, então, uma vez que você vai ver essas perguntas de entrevista, você vai conseguir tudo lá, se você for capaz de resolver essas perguntas de entrevista, ok? Então, acredite em mim, pessoal, tem 95% de chance, 95% a 99% de chance, você vai conseguir as perguntas de entrevista, ok? Então, qualquer entrevista que você estiver dando em relação ao Genitive AI, você vai conseguir as perguntas de entrevista desse documento, o documento em si, qualquer documento que eu compartilhe com você, você vai conseguir as perguntas de entrevista desse documento em si, é minha promessa. Entendeu? Me diga. Então, senhor, você vai tomar o curso Genitive AI LLM? Sim, com certeza eu vou tomar na sessão de live em si, e eu vou te ensinar assim só, tudo de início.
+
+Então, me diga pessoal, esta ideia inicial está ficando clara, clara para todos vocês? Me diga sim ou não, você está entendendo?
+
+(Este arquivo tem mais de 30 minutos. Atualize para Ilimitado em TurboScribe.ai para transcrever arquivos de até 10 horas.)
