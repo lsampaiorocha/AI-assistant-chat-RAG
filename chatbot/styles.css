@@ -112,10 +112,25 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   border-radius: 14px;
   border: 1px solid var(--border);
   line-height: 1.5;
-  white-space: pre-wrap;
+  white-space: normal; /* ✅ deixa o HTML do markdown renderizar */
 }
 .assistant .bubble { background: var(--bubble-assistant); }
 .user .bubble { background: var(--bubble-user); color: #e5e7eb; border-color: #111827; }
+
+/* Markdown inside bubbles */
+.bubble p {
+  margin: 0 0 8px;
+}
+.bubble ul, .bubble ol {
+  margin: 6px 0 6px 20px;
+  padding: 0;
+}
+.bubble li {
+  margin-bottom: 4px;
+}
+.bubble strong {
+  font-weight: 600;
+}
 
 .typing {
   display: flex;
@@ -176,5 +191,3 @@ textarea {
   background: var(--border);
   border-radius: 8px;
 }
-
-

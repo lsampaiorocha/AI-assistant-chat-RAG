@@ -2,11 +2,6 @@
 // Configuration
 // ===============================
 
-/**
- * API backend configuration.
- * - endpoint: URL of the FastAPI server (/api/chat).
- * - headers: optional custom headers (e.g. Authorization).
- */
 const API_CONFIG = {
   endpoint: 'http://localhost:8000/api/chat',
   headers: {
@@ -14,11 +9,6 @@ const API_CONFIG = {
   },
 };
 
-/**
- * Toggle to use mock responses instead of the real backend.
- * - true: runs locally with hardcoded responses (no backend needed).
- * - false: calls the FastAPI agent backend.
- */
 const USE_MOCK = false;
 
 
@@ -35,11 +25,9 @@ const stopBtn = document.getElementById('stopBtn');
 const typingEl = document.getElementById('typing');
 const statusTag = document.getElementById('statusTag');
 
-let messages = [];       // stores conversation history
-let currentAbort = null; // active AbortController for streaming
+let messages = [];
+let currentAbort = null;
 
-// A stable thread id (one per chat). LangGraph checkpointer uses this.
-// Persist it so a page refresh continues the same conversation.
 const makeThreadId = () => `web-${Math.random().toString(36).slice(2, 10)}`;
 let threadId = localStorage.getItem("thread_id") || makeThreadId();
 localStorage.setItem("thread_id", threadId);
@@ -49,18 +37,16 @@ localStorage.setItem("thread_id", threadId);
 // UI helpers
 // ===============================
 
-/** Show/hide typing indicator */
 function setTyping(isTyping) {
   typingEl.classList.toggle('hidden', !isTyping);
   statusTag.textContent = isTyping ? 'Thinking…' : 'Ready';
 }
 
-/** Auto-scroll chat to bottom */
 function scrollToBottom() {
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-/** Build a DOM node for a chat message */
+/** Renderiza mensagens com markdown */
 function createMessageNode(role, text) {
   const wrapper = document.createElement('div');
   wrapper.className = `message ${role}`;
@@ -69,13 +55,12 @@ function createMessageNode(role, text) {
   avatar.textContent = role === 'assistant' ? '🤖' : '🧑';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
-  bubble.textContent = text;
+  bubble.innerHTML = marked.parse(text || ""); // ✅ render markdown
   wrapper.appendChild(avatar);
   wrapper.appendChild(bubble);
   return wrapper;
 }
 
-/** Render full chat history into the chat window */
 function renderMessages() {
   messagesEl.innerHTML = '';
   for (const m of messages) {
@@ -84,26 +69,23 @@ function renderMessages() {
   scrollToBottom();
 }
 
-/** Append a new message to history and DOM */
 function appendMessage(role, text) {
   messages.push({ role, content: text });
   messagesEl.appendChild(createMessageNode(role, text));
   scrollToBottom();
 }
 
-/** Update the bubble text of the last assistant message */
 function updateLastAssistantMessage(text) {
   for (let i = messagesEl.children.length - 1; i >= 0; i -= 1) {
     const node = messagesEl.children[i];
     if (node.classList.contains('assistant')) {
       const bubble = node.querySelector('.bubble');
-      bubble.textContent = text;
+      bubble.innerHTML = marked.parse(text || ""); // ✅ render markdown
       break;
     }
   }
 }
 
-/** Enable/disable chat controls while processing */
 function setControlsBusy(busy) {
   sendBtn.disabled = busy;
   regenerateBtn.disabled = busy;
@@ -116,12 +98,6 @@ function setControlsBusy(busy) {
 // Core chat logic
 // ===============================
 
-/**
- * Send a user message and handle assistant response.
- * - Updates UI state (busy, typing).
- * - Calls backend (real or mock).
- * - Handles streaming or JSON responses.
- */
 async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text || currentAbort) return;
@@ -137,12 +113,12 @@ async function sendMessage() {
   currentAbort = abortController;
 
   let assistantText = '';
-  appendMessage('assistant', ''); // placeholder for streaming
+  appendMessage('assistant', '');
 
   try {
     const history = messages
       .filter(m => m.role === 'user' || m.role === 'assistant')
-      .slice(0, -1); // exclude placeholder
+      .slice(0, -1);
 
     const onToken = (token) => {
       assistantText += token;
@@ -160,16 +136,13 @@ async function sendMessage() {
       }
     }
 
-    // finalize state
     messages[messages.length - 1].content = assistantText || (res && res.text) || '';
 
-    // optionally keep citations
     if (res && res.citations) {
       messages[messages.length - 1].citations = res.citations;
       console.log("Citations:", res.citations);
     }
 
-    // show phase if backend returned one (safe no-op if not present)
     if (res && res.phase) {
       statusTag.textContent = `Phase: ${res.phase}`;
     }
@@ -190,7 +163,6 @@ async function sendMessage() {
   }
 }
 
-/** Regenerate assistant’s last answer */
 async function regenerateLast() {
   if (currentAbort) return;
   for (let i = messages.length - 1; i >= 0; i -= 1) {
@@ -206,20 +178,20 @@ async function regenerateLast() {
   }
 }
 
-/** Start a new empty chat */
 function newChat() {
   if (currentAbort) return;
   messages = [];
   messagesEl.innerHTML = '';
   statusTag.textContent = 'Ready';
-  // Start a brand-new conversation thread (and persist it)
   threadId = makeThreadId();
   localStorage.setItem("thread_id", threadId);
-  appendMessage('assistant', "Hi! I'm your AI mentor. Let's get started!");
+  appendMessage(
+  'assistant',
+  "Hi! I'm your AI mentor inspired by Steve Jobs — here to challenge your ideas, sharpen your vision, and guide you in building a bold startup. To start, tell me a bit about yourself and the stage of your project right now."
+  );
   inputEl.focus();
 }
 
-/** Stop ongoing streaming generation */
 function stopGeneration() {
   if (currentAbort) {
     currentAbort.abort();
@@ -231,11 +203,6 @@ function stopGeneration() {
 // Backend integration
 // ===============================
 
-/**
- * Call the FastAPI agent backend.
- * - Supports both JSON and streaming responses.
- * - Returns { text, citations, phase? }.
- */
 async function callAgent(message, history, { onToken, signal } = {}) {
   const response = await fetch(API_CONFIG.endpoint, {
     method: 'POST',
@@ -243,20 +210,18 @@ async function callAgent(message, history, { onToken, signal } = {}) {
     body: JSON.stringify({
       message,
       history,
-      stream: false, // set true for streaming tokens if the server streams
-      thread_id: threadId, // 👈 IMPORTANT: used by LangGraph checkpointer
-      // system_prompt: "You are a helpful AI assistant.",
+      stream: false,
+      thread_id: threadId,
     }),
     signal,
   });
 
-  // Handle non-2xx with readable error
   if (!response.ok) {
     let detail = `HTTP ${response.status} ${response.statusText}`;
     try {
       const errJson = await response.json();
       if (errJson && errJson.detail) detail = errJson.detail;
-    } catch (_) { /* ignore parse error */ }
+    } catch (_) {}
     throw new Error(detail);
   }
 
@@ -270,7 +235,6 @@ async function callAgent(message, history, { onToken, signal } = {}) {
     };
   }
 
-  // Streaming fallback (if server returns text/plain chunked)
   if (response.body && onToken) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
@@ -293,7 +257,7 @@ async function callAgent(message, history, { onToken, signal } = {}) {
 
 
 // ===============================
-// Mock backend (for local testing)
+// Mock backend
 // ===============================
 
 async function callAgentMock(message, history, { onToken, signal } = {}) {
@@ -322,14 +286,12 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 // UI wiring
 // ===============================
 
-/** Auto-resize textarea height */
 function autoResizeTextarea(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 220) + 'px';
 }
 inputEl.addEventListener('input', () => autoResizeTextarea(inputEl));
 
-/** Keyboard: Enter = send, Shift+Enter = newline */
 inputEl.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
@@ -342,5 +304,4 @@ newChatBtn.addEventListener('click', newChat);
 regenerateBtn.addEventListener('click', regenerateLast);
 stopBtn.addEventListener('click', stopGeneration);
 
-// Initial greeting
-appendMessage('assistant', "Hi! I'm your AI mentor. Let's get started!");
+appendMessage('assistant', "Hi! I'm your AI mentor inspired by Steve Jobs — here to challenge your ideas, sharpen your vision, and guide you in building a bold startup. To start, tell me a bit about yourself and the stage of your project right now.");
