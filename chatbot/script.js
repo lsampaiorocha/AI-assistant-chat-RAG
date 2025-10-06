@@ -304,4 +304,4 @@ newChatBtn.addEventListener('click', newChat);
 regenerateBtn.addEventListener('click', regenerateLast);
 stopBtn.addEventListener('click', stopGeneration);
 
-appendMessage('assistant', "Hi! I'm your AI mentor inspired by Steve Jobs — here to challenge your ideas, sharpen your vision, and guide you in building a bold startup. To start, tell me a bit about yourself and the stage of your project right now.");
+newChat()
