@@ -1,4 +1,4 @@
-# 🚀 AI Startup Mentor — Interactive Multi-Expert Chat System
+# AI Startup Mentor — Interactive Multi-Expert Chat System
 
 **Author:** Leonardo Sampaio Rocha
 
