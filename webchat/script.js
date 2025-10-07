@@ -2,14 +2,40 @@
 // Configuration
 // ===============================
 
+const isLocalhost =
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.hostname.endsWith('.local');
+
 const API_CONFIG = {
-  endpoint: 'http://localhost:8000/api/chat',
+  endpoint: isLocalhost
+    ? 'http://127.0.0.1:8000/api/chat' // Local dev (Uvicorn)
+    : 'https://ai-mentor-api-clean-195914501585.southamerica-east1.run.app/api/chat', 
   headers: {
     // 'Authorization': 'Bearer YOUR_TOKEN',
   },
 };
 
+console.log('Environment:', isLocalhost ? 'LOCAL' : 'PRODUCTION');
+console.log('Using API endpoint:', API_CONFIG.endpoint);
+
 const USE_MOCK = false;
+
+// ===============================
+// Thread management (persistent per user)
+// ===============================
+
+// Try to restore a previous thread_id from localStorage.
+// If none exists, create a new one (e.g., user-<random-hex>)
+let THREAD_ID = localStorage.getItem('ai_mentor_thread_id');
+
+if (!THREAD_ID) {
+  THREAD_ID = 'user-' + Math.random().toString(36).substring(2, 10);
+  localStorage.setItem('ai_mentor_thread_id', THREAD_ID);
+  console.log('Created new thread_id:', THREAD_ID);
+} else {
+  console.log('Resuming existing thread_id:', THREAD_ID);
+}
 
 
 // ===============================
@@ -27,11 +53,6 @@ const statusTag = document.getElementById('statusTag');
 
 let messages = [];
 let currentAbort = null;
-
-const makeThreadId = () => `web-${Math.random().toString(36).slice(2, 10)}`;
-let threadId = localStorage.getItem("thread_id") || makeThreadId();
-localStorage.setItem("thread_id", threadId);
-
 
 // ===============================
 // UI helpers
@@ -55,7 +76,7 @@ function createMessageNode(role, text) {
   avatar.textContent = role === 'assistant' ? '🤖' : '🧑';
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
-  bubble.innerHTML = marked.parse(text || ""); // ✅ render markdown
+  bubble.innerHTML = marked.parse(text || ""); 
   wrapper.appendChild(avatar);
   wrapper.appendChild(bubble);
   return wrapper;
@@ -80,7 +101,7 @@ function updateLastAssistantMessage(text) {
     const node = messagesEl.children[i];
     if (node.classList.contains('assistant')) {
       const bubble = node.querySelector('.bubble');
-      bubble.innerHTML = marked.parse(text || ""); // ✅ render markdown
+      bubble.innerHTML = marked.parse(text || ""); 
       break;
     }
   }
@@ -92,7 +113,6 @@ function setControlsBusy(busy) {
   newChatBtn.disabled = busy;
   stopBtn.disabled = !busy;
 }
-
 
 // ===============================
 // Core chat logic
@@ -116,10 +136,6 @@ async function sendMessage() {
   appendMessage('assistant', '');
 
   try {
-    const history = messages
-      .filter(m => m.role === 'user' || m.role === 'assistant')
-      .slice(0, -1);
-
     const onToken = (token) => {
       assistantText += token;
       updateLastAssistantMessage(assistantText);
@@ -127,9 +143,9 @@ async function sendMessage() {
 
     let res = null;
     if (USE_MOCK) {
-      res = await callAgentMock(text, history, { onToken, signal: abortController.signal });
+      res = await callAgentMock(text, { onToken, signal: abortController.signal });
     } else {
-      res = await callAgent(text, history, { onToken, signal: abortController.signal });
+      res = await callAgent(text, { onToken, signal: abortController.signal });
       if (res && res.text && assistantText.length === 0) {
         assistantText = res.text;
         updateLastAssistantMessage(assistantText);
@@ -183,14 +199,27 @@ function newChat() {
   messages = [];
   messagesEl.innerHTML = '';
   statusTag.textContent = 'Ready';
-  threadId = makeThreadId();
-  localStorage.setItem("thread_id", threadId);
+
+  // First friendly greeting
   appendMessage(
-  'assistant',
-  "Hi! I'm your AI mentor inspired by Steve Jobs — here to challenge your ideas, sharpen your vision, and guide you in building a bold startup. To start, tell me a bit about yourself and the stage of your project right now."
+    'assistant',
+    "Hi! I'm your AI Startup mentor — here to challenge your ideas, sharpen your vision, and help you build something remarkable. "
   );
+
+  // Show typing indicator briefly before the next message
+  setTyping(true);
+
+  setTimeout(() => {
+    setTyping(false);
+    appendMessage(
+      'assistant',
+      "You can ask me about anything — and if you’d like other views, just tag the **CTO**, **PM**, or **VC**. You can also call the **committee** to hear from everyone at once."
+    );
+  }, 1200);
+
   inputEl.focus();
 }
+
 
 function stopGeneration() {
   if (currentAbort) {
@@ -198,20 +227,19 @@ function stopGeneration() {
   }
 }
 
-
 // ===============================
 // Backend integration
 // ===============================
 
-async function callAgent(message, history, { onToken, signal } = {}) {
+async function callAgent(message, { onToken, signal } = {}) {
+  console.log('Sending to backend with thread_id =', THREAD_ID);
   const response = await fetch(API_CONFIG.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...API_CONFIG.headers },
     body: JSON.stringify({
       message,
-      history,
       stream: false,
-      thread_id: threadId,
+      thread_id: THREAD_ID, 
     }),
     signal,
   });
@@ -255,13 +283,12 @@ async function callAgent(message, history, { onToken, signal } = {}) {
   return { text: '', citations: [], phase: null };
 }
 
-
 // ===============================
 // Mock backend
 // ===============================
 
-async function callAgentMock(message, history, { onToken, signal } = {}) {
-  const reply = mockReply(message, history);
+async function callAgentMock(message, { onToken, signal } = {}) {
+  const reply = mockReply(message);
   for (const token of tokenize(reply)) {
     if (signal && signal.aborted) throw new DOMException('Aborted', 'AbortError');
     await sleep(20 + Math.random() * 40);
@@ -270,7 +297,7 @@ async function callAgentMock(message, history, { onToken, signal } = {}) {
   return { text: reply, citations: [], phase: 'mock' };
 }
 
-function mockReply(message, history) {
+function mockReply(message) {
   if (/hello|hi|hey/i.test(message)) return 'Hello! How can I help you today?';
   if (/help|feature/i.test(message)) return 'Sure! Ask me anything about your project or ideas.';
   return `You said: "${message}"`;
@@ -280,7 +307,6 @@ function* tokenize(text) {
   for (const ch of text) yield ch;
 }
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
 
 // ===============================
 // UI wiring
@@ -304,4 +330,5 @@ newChatBtn.addEventListener('click', newChat);
 regenerateBtn.addEventListener('click', regenerateLast);
 stopBtn.addEventListener('click', stopGeneration);
 
-newChat()
+// Mensagem inicial + NÃO altera thread
+newChat();
