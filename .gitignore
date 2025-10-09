@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .venv/
+services/rag.py
 
 # Env files
 .env

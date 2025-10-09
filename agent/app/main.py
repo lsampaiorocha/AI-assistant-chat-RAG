@@ -15,8 +15,6 @@ from pydantic import BaseModel, Field
 from google.cloud import storage
 
 from .services.llm_openai import OpenAIChat
-from .services.rag import RAGPipeline, RetrievalResult
-from .services.ingest import ingest_document
 from .state_graph import graph
 
 
@@ -39,23 +37,35 @@ if _system_prompt_file.exists():
     DEFAULT_SYSTEM_PROMPT = data.get("prompt", "")
 else:
     DEFAULT_SYSTEM_PROMPT = (
-        "You are Steve Jobs acting as a startup mentor. "
-        "Speak with vision, challenge assumptions, and give sharp, practical advice "
-        "focused on entrepreneurship, innovation, and building great products."
+        "You are an AI Mentor inspired at Steve Jobs, acting as a mentor for startup founders.",
+        "Speak with sharp insight, challenge assumptions, and push people to think bigger.",
+        "Always focus on product excellence, user experience, innovation, and building impactful companies.",
+        "Keep answers short (2–4 sentences), practical, and inspiring.",
+        "Prefer natural conversation: share one point, then ask a follow-up question to gather context.",
+        "Do not drift into unrelated topics.",
+        "Avoid long encyclopedic responses or lengthy bullet lists unless explicitly asked."
     )
 
 
 # -----------------------------------------------------------------------------
-# GCS persistence (direct, per-thread JSON)
+# GCS persistence (configurable via .env)
 # -----------------------------------------------------------------------------
-BUCKET_NAME = "ai-mentor-checkpoints"
-THREADS_PREFIX = "threads"  # gs://<bucket>/threads/<thread_id>.json
+# Expect a variable in .env like:
+#   GCS_BUCKET_NAME=ai-mentor-checkpoints
+BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
+THREADS_PREFIX = os.getenv("GCS_THREADS_PREFIX", "threads")
+
+if not BUCKET_NAME:
+    raise RuntimeError(
+        "Missing environment variable 'GCS_BUCKET_NAME'. "
+        "Please set it in your .env file, e.g., GCS_BUCKET_NAME=ai-mentor-checkpoints"
+    )
 
 _gcs_client: Optional[storage.Client] = None
 
 
 def _gcs() -> storage.Client:
-    """Gets a singleton GCS client. Respects GOOGLE_CLOUD_PROJECT if set."""
+    """Return a singleton GCS client, respecting GOOGLE_CLOUD_PROJECT if set."""
     global _gcs_client
     if _gcs_client is None:
         project = os.getenv("GOOGLE_CLOUD_PROJECT") or os.getenv("GCLOUD_PROJECT")
@@ -70,14 +80,11 @@ def _thread_blob(thread_id: str) -> storage.Blob:
 
 
 def load_thread_from_gcs(thread_id: str) -> List[dict]:
-    """
-    Return full message list from gs://bucket/threads/<thread_id>.json.
-    If not found, return [].
-    """
+    """Load a thread’s messages from GCS. Return [] if not found."""
     try:
         blob = _thread_blob(thread_id)
         if not blob.exists():
-            print(f"ℹ No thread file found for '{thread_id}' in gs://{BUCKET_NAME}/{THREADS_PREFIX}/")
+            print(f"No thread file found for '{thread_id}' in gs://{BUCKET_NAME}/{THREADS_PREFIX}/")
             return []
         text = blob.download_as_text(encoding="utf-8")
         if not text:
@@ -86,17 +93,15 @@ def load_thread_from_gcs(thread_id: str) -> List[dict]:
         msgs = data.get("messages", [])
         if not isinstance(msgs, list):
             msgs = []
-        print(f"☁️ Loaded thread '{thread_id}' with {len(msgs)} message(s) from GCS")
+        print(f"Loaded thread '{thread_id}' with {len(msgs)} message(s) from GCS")
         return msgs
     except Exception as e:
-        print(f"⚠ Could not load thread '{thread_id}' from GCS: {e}")
+        print(f"Could not load thread '{thread_id}' from GCS: {e}")
         return []
 
 
 def save_thread_to_gcs(thread_id: str, messages: List[dict]) -> None:
-    """
-    Overwrite gs://bucket/threads/<thread_id>.json with the full merged history.
-    """
+    """Save a thread’s messages back to GCS (overwrite full history)."""
     try:
         payload = {"messages": messages}
         blob = _thread_blob(thread_id)
@@ -104,38 +109,35 @@ def save_thread_to_gcs(thread_id: str, messages: List[dict]) -> None:
             data=json.dumps(payload, ensure_ascii=False),
             content_type="application/json",
         )
-        print(f"✅ Saved thread '{thread_id}' with {len(messages)} message(s) to GCS")
+        print(f"Saved thread '{thread_id}' with {len(messages)} message(s) to GCS")
     except Exception as e:
-        print(f"⚠ Could not save thread '{thread_id}' to GCS: {e}")
+        print(f"Could not save thread '{thread_id}' to GCS: {e}")
 
 
 def _normalize_msg(m: dict) -> dict:
     """Ensure a message is a plain dict with role/content."""
     if isinstance(m, dict):
-        role = m.get("role")
-        content = m.get("content")
-        return {"role": role, "content": content}
-    # If pydantic Message sneaks in, coerce
+        return {"role": m.get("role"), "content": m.get("content")}
     role = getattr(m, "role", None)
     content = getattr(m, "content", None)
     return {"role": role, "content": content}
 
 
 def _diff_new_assistant_messages(before: List[dict], after: List[dict]) -> List[dict]:
-    """
-    Return assistant messages that are present in 'after' but not in 'before'.
-    We compare by sequence index from the tail and role, preferring simple diff:
-    """
-    # Fast path: if 'after' is longer, take the tail slice; keep only assistant roles.
+    """Return assistant messages that appear in 'after' but not in 'before'."""
     if len(after) > len(before):
         tail = after[len(before):]
         return [_normalize_msg(m) for m in tail if isinstance(m, dict) and m.get("role") == "assistant"]
 
-    # Fallback: set-based difference by (role, content) tuples
-    seen = {(m.get("role"), json.dumps(m.get("content"), ensure_ascii=False) if isinstance(m.get("content"), (dict, list)) else str(m.get("content"))) for m in before}
+    seen = {
+        (m.get("role"), json.dumps(m.get("content"), ensure_ascii=False)
+         if isinstance(m.get("content"), (dict, list)) else str(m.get("content")))
+        for m in before
+    }
     out = []
     for m in after:
-        key = (m.get("role"), json.dumps(m.get("content"), ensure_ascii=False) if isinstance(m.get("content"), (dict, list)) else str(m.get("content")))
+        key = (m.get("role"), json.dumps(m.get("content"), ensure_ascii=False)
+               if isinstance(m.get("content"), (dict, list)) else str(m.get("content")))
         if key not in seen and m.get("role") == "assistant":
             out.append(_normalize_msg(m))
     return out
@@ -151,7 +153,7 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    history: List[Message] = Field(default_factory=list)  # ignored; we always load from GCS
+    history: List[Message] = Field(default_factory=list)
     stream: bool = False
     system_prompt: Optional[str] = None
     thread_id: Optional[str] = None
@@ -159,15 +161,13 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     reply: str
-    citations: Optional[List[RetrievalResult]] = None
-    phase: Optional[str] = None
 
 
 # -----------------------------------------------------------------------------
 # Debug helper
 # -----------------------------------------------------------------------------
 def _print_messages(label: str, messages: List[dict]) -> None:
-    print(f"\n🔍 {label}: total {len(messages)} message(s)")
+    print(f"\n{label}: total {len(messages)} message(s)")
     for i, m in enumerate(messages[-6:], start=max(1, len(messages) - 5)):
         role = m.get("role", "unknown")
         content = m.get("content", "")
@@ -185,33 +185,15 @@ def _print_messages(label: str, messages: List[dict]) -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     llm = OpenAIChat()
-    rag = RAGPipeline()
-
     app.state.llm = llm
-    app.state.rag = rag
-
-    # Optional RAG ingestion (unchanged)
-    try:
-        stats = rag.collection.count()
-    except Exception:
-        stats = 0
-    if stats == 0:
-        default_doc = _repo_root / "docs" / "GenAI interview.txt"
-        if default_doc.exists():
-            ingest_document(default_doc.read_text(encoding="utf-8"))
-            print("✅ Ingestion completed.")
-        else:
-            print("ℹ No default document found to ingest.")
-
     yield
-    # No flush needed; persistence is immediate to GCS
 
 
 # -----------------------------------------------------------------------------
 # App factory
 # -----------------------------------------------------------------------------
 def create_app() -> FastAPI:
-    app = FastAPI(title="Agent API", version="0.4.1-gcs", lifespan=lifespan)
+    app = FastAPI(title="Agent API", version="0.4.2-gcs-env", lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -226,24 +208,20 @@ def create_app() -> FastAPI:
 
     @app.post("/api/chat", response_model=ChatResponse)
     async def chat(req: ChatRequest):
-        rag: RAGPipeline = app.state.rag
-
         thread_id = req.thread_id or "web-fixed"
         system_msg = req.system_prompt or DEFAULT_SYSTEM_PROMPT
 
-        # 1) Load full history from GCS
-        history: List[dict] = [ _normalize_msg(m) for m in load_thread_from_gcs(thread_id) ]
-
-        # If empty, start with system prompt
+        # 1) Load history
+        history: List[dict] = [_normalize_msg(m) for m in load_thread_from_gcs(thread_id)]
         if not history:
             history = [{"role": "system", "content": system_msg}]
 
         _print_messages(f"Loaded (thread={thread_id})", history)
 
-        # 2) Append the new user message (APPEND)
+        # 2) Add user message
         history.append({"role": "user", "content": req.message})
 
-        # 3) Run the graph (no checkpointer; we own persistence)
+        # 3) Run graph
         try:
             result = await graph.ainvoke(
                 {"messages": history},
@@ -252,33 +230,21 @@ def create_app() -> FastAPI:
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Graph error: {e}")
 
-        # 4) Graph may return only the delta or a full list.
-        #    We compute "new assistant messages" and append them to our local history.
-        result_msgs: List[dict] = [ _normalize_msg(m) for m in result.get("messages", []) ]
+        # 4) Detect new assistant messages
+        result_msgs: List[dict] = [_normalize_msg(m) for m in result.get("messages", [])]
         new_assistant = _diff_new_assistant_messages(before=history, after=result_msgs or history)
-
-        # If graph returned nothing, we keep history as-is (already has user msg)
         if new_assistant:
             history.extend(new_assistant)
 
-        # 5) Extract reply from the last assistant message
-        last_assistant = next(
-            (m for m in reversed(history) if m.get("role") == "assistant"),
-            None,
-        )
+        # 5) Extract reply
+        last_assistant = next((m for m in reversed(history) if m.get("role") == "assistant"), None)
         reply = last_assistant.get("content", "").strip() if last_assistant else "(no assistant response found)"
 
-        # 6) Save full merged history back to GCS (APPEND semantics via overwrite of merged)
+        # 6) Persist thread
         save_thread_to_gcs(thread_id, history)
         _print_messages(f"Saved (thread={thread_id})", history)
 
-        # 7) Optional citations
-        try:
-            citations = await rag.retrieve(req.message)
-        except Exception:
-            citations = []
-
-        return ChatResponse(reply=reply, citations=citations)
+        return ChatResponse(reply=reply)
 
     return app
 
